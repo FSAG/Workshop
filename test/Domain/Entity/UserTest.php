@@ -48,7 +48,21 @@ class UserTest extends \PHPUnit_Framework_TestCase
     public function it_can_bid_on_every_valid_auction(User $user)
     {
         $repository = $this->getMock(AuctionRepository::class);
+    }
 
+    /**
+     * @test
+     */
+    public function it_can_view_bought_articles()
+    {
+
+    }
+
+    /**
+     * @test
+     */
+    public function it_can_view_sold_articles()
+    {
 
     }
 

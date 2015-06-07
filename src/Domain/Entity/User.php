@@ -2,6 +2,7 @@
 
 namespace Workshop\Auction\Domain\Entity;
 
+use Workshop\Auction\Domain\Value\Article;
 use Workshop\Auction\Domain\Value\Email;
 use Workshop\Auction\Domain\Value\UserId;
 
@@ -22,9 +23,14 @@ class User
     private $username;
 
     /**
-     * @var Auction[]
+     * @var Article[]
      */
-    private $auctions;
+    private $soldArticles;
+
+    /**
+     * @var Article[]
+     */
+    private $boughtArticles;
 
     /**
      * @param Email $email
@@ -66,5 +72,21 @@ class User
     public function getUsername()
     {
         return $this->username;
+    }
+
+    /**
+     * @return Auction[]
+     */
+    public function getSoldAuctions()
+    {
+        return $this->soldArticles;
+    }
+
+    /**
+     * @return Auction[]
+     */
+    public function getBoughtAuctions()
+    {
+        return $this->boughtArticles;
     }
 }
