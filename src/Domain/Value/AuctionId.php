@@ -2,13 +2,8 @@
 
 namespace Workshop\Auction\Domain\Value;
 
-final class AuctionId
+final class AuctionId extends Identity
 {
-    /**
-     * @var
-     */
-    private $value;
-
     /**
      * @return AuctionId
      */
@@ -25,15 +20,5 @@ final class AuctionId
     public static function fromString($string)
     {
         return new self($string);
-    }
-
-    /**
-     * @todo add assertion
-     *
-     * @param $value
-     */
-    private function __construct($value)
-    {
-        $this->value = $value;
     }
 }

@@ -5,6 +5,7 @@ namespace test\Workshop\Auction\Domain\Entity;
 use Workshop\Auction\Domain\Entity\Auction;
 use Workshop\Auction\Domain\Entity\User;
 use DateTime;
+use Workshop\Auction\Domain\Value\UserId;
 
 class AutionTest extends \PHPUnit_Framework_TestCase
 {
@@ -14,7 +15,7 @@ class AutionTest extends \PHPUnit_Framework_TestCase
      */
     public function it_could_be($title, $description, DateTime $startTime, DateTime $endTime)
     {
-        $user = $this->getMock(User::class);
+        $user = $this->getMock(UserId::class);
         $user->expects($this->any())
             ->method('getId')
             ->willReturn(12)
