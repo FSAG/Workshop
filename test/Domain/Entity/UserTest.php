@@ -9,8 +9,6 @@ class UserTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @test
-     *
-     * @return User
      */
     public function it_has_email_and_nickname()
     {
@@ -21,7 +19,5 @@ class UserTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals($email, $user->getEmail());
         $this->assertEquals($username, $user->getUsername());
-
-        return $user;
     }
 }
