@@ -219,6 +219,6 @@ class Auction
 
     private function guardBid(Bid $bid)
     {
-        
+
     }
 }

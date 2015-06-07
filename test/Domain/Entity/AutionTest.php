@@ -71,7 +71,7 @@ class AutionTest extends \PHPUnit_Framework_TestCase
         $startTime = new DateTime('-5 days');
         $endTime = new DateTime('-1 days');
 
-        $auction = Auction::register($auctionId, $userId, $startTime, $endTime, 'zzz', 'xxx');
+        $auction = Auction::register($auctionId, $userId, $startTime, $endTime, 'zzz', 'xxx', Money::fromValues(100, 'EUR'), Money::fromValues(15000, 'EUR'));
 
         $this->assertFalse($auction->isRunning());
     }
