@@ -11,14 +11,13 @@ class UserTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      *
-     * @dataProvider createUserProvider
-     *
-     * @param Email $email
-     * @param $username
      * @return User
      */
-    public function it_has_email_and_nickname(Email $email, $username)
+    public function it_has_email_and_nickname()
     {
+        $email = Email::fromEmailString('valid@email.com');
+        $username = 'creativeUserName';
+
         $user = User::fromValues($email, $username);
 
         $this->assertEquals($email, $user->getEmail());
@@ -36,9 +35,7 @@ class UserTest extends \PHPUnit_Framework_TestCase
      */
     public function it_can_create_an_auction(User $user)
     {
-        // fire user assigned command?
 
-        // user class created Auction?
     }
 
     /**
@@ -51,6 +48,8 @@ class UserTest extends \PHPUnit_Framework_TestCase
     public function it_can_bid_on_every_valid_auction(User $user)
     {
         $repository = $this->getMock(AuctionRepository::class);
+
+
     }
 
     public function createUserProvider()
