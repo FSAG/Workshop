@@ -2,6 +2,8 @@
 
 namespace Workshop\Auction\Domain\Value;
 
+use DateTime;
+
 class Bid
 {
     /**
@@ -9,30 +11,30 @@ class Bid
      */
     private $userId;
     /**
-     * @var float
+     * @var Money
      */
     private $value;
 
     /**
      * @param UserId $userId
-     * @param float $value
+     * @param Money $value
      *
      * @return Bid
      */
-    public static function fromValues(UserId $userId, $value)
+    public static function fromValues(UserId $userId, Money $value)
     {
-        $value = (float) $value;
         return new self($userId, $value);
     }
 
     /**
      * @param UserId $userId
-     * @param $value
+     * @param Money $value
      */
-    function __construct(UserId $userId, $value)
+    function __construct(UserId $userId, Money $value)
     {
         $this->userId = $userId;
         $this->value = $value;
+        $this->time = new DateTime();
     }
 
     /**
@@ -49,5 +51,13 @@ class Bid
     public function getValue()
     {
         return $this->value;
+    }
+
+    /**
+     * @return DateTime
+     */
+    public function getTime()
+    {
+        return $this->time;
     }
 }
