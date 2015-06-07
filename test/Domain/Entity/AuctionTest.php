@@ -10,7 +10,7 @@ use Workshop\Auction\Domain\Value\Bid;
 use Workshop\Auction\Domain\Value\Money;
 use Workshop\Auction\Domain\Value\UserId;
 
-class AutionTest extends \PHPUnit_Framework_TestCase
+class AuctionTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @test
