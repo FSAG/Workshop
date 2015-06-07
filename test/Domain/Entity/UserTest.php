@@ -33,18 +33,6 @@ class UserTest extends \PHPUnit_Framework_TestCase
      *
      * @param User $user
      */
-    public function it_can_create_an_auction(User $user)
-    {
-
-    }
-
-    /**
-     * @test
-     *
-     * @depends it_has_email_and_nickname
-     *
-     * @param User $user
-     */
     public function it_can_bid_on_every_valid_auction(User $user)
     {
         $repository = $this->getMock(AuctionRepository::class);
@@ -52,10 +40,12 @@ class UserTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @test
+     *
+     * @param User $user
      */
-    public function it_can_view_bought_articles()
+    public function it_can_view_bought_articles(User $user)
     {
-
+        $this->assertNotEmpty($user->getBoughtArticles());
     }
 
     /**

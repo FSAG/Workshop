@@ -77,7 +77,7 @@ class User
     /**
      * @return Auction[]
      */
-    public function getSoldAuctions()
+    public function getSoldArticles()
     {
         return $this->soldArticles;
     }
@@ -85,7 +85,7 @@ class User
     /**
      * @return Auction[]
      */
-    public function getBoughtAuctions()
+    public function getBoughtArticles()
     {
         return $this->boughtArticles;
     }
