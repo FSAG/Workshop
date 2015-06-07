@@ -176,5 +176,13 @@ class Auction
         return $this->isBuyNowAvailable;
     }
 
+    /**
+     * @return bool
+     */
+    public function isRunning()
+    {
+        $now = new \DateTime();
 
+        return $this->startTime >= $now && $now < $this->endTime;
+    }
 }
