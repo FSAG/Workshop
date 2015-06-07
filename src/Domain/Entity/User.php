@@ -2,7 +2,6 @@
 
 namespace Workshop\Auction\Domain\Entity;
 
-use Workshop\Auction\Domain\Value\Article;
 use Workshop\Auction\Domain\Value\Email;
 use Workshop\Auction\Domain\Value\UserId;
 
@@ -16,21 +15,10 @@ class User
      * @var Email
      */
     private $email;
-
     /**
      * @var string
      */
     private $username;
-
-    /**
-     * @var Article[]
-     */
-    private $soldArticles;
-
-    /**
-     * @var Article[]
-     */
-    private $boughtArticles;
 
     /**
      * @param Email $email
@@ -54,10 +42,6 @@ class User
         $this->id = UserId::generate();
     }
 
-    public function createAuction($title, $description, $startTime, $endTime, $startingPrice, $isBuyNow = false)
-    {
-    }
-
     /**
      * @return Email
      */
@@ -72,21 +56,5 @@ class User
     public function getUsername()
     {
         return $this->username;
-    }
-
-    /**
-     * @return Auction[]
-     */
-    public function getSoldArticles()
-    {
-        return $this->soldArticles;
-    }
-
-    /**
-     * @return Auction[]
-     */
-    public function getBoughtArticles()
-    {
-        return $this->boughtArticles;
     }
 }
