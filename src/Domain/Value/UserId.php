@@ -4,5 +4,12 @@ namespace Workshop\Auction\Domain\Value;
 
 class UserId
 {
-    private $value;
+    /**
+     * @return UserId
+     */
+    public static function generate()
+    {
+        return new UserId();
+    }
+
 }
