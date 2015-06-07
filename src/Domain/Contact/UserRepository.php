@@ -2,6 +2,7 @@
 
 namespace Workshop\Auction\Domain\Contract;
 
-class UserRepository
+interface UserRepository
 {
+    public function getByEmail();
 }
