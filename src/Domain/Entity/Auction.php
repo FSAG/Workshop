@@ -6,6 +6,7 @@ use Workshop\Auction\Domain\Exception\ArticleAlreadyAddedException;
 use Workshop\Auction\Domain\Exception\DomainException;
 use Workshop\Auction\Domain\Value\Article;
 use Workshop\Auction\Domain\Value\AuctionId;
+use Workshop\Auction\Domain\Value\Money;
 use Workshop\Auction\Domain\Value\UserId;
 use DateTime;
 
@@ -36,6 +37,14 @@ class Auction
      */
     private $endTime;
     /**
+     * @var Money
+     */
+    private $startingPrice;
+    /**
+     * @var bool
+     */
+    private $isBuyNowAvailable;
+    /**
      * @var Article
      */
     private $article;
@@ -47,11 +56,21 @@ class Auction
      * @param DateTime  $endTime
      * @param string    $title
      * @param string    $description
+     * @param Money     $startingPrice
+     * @param bool      $isBuyNowAvailable
      *
      * @return Auction
      */
-    public static function register(AuctionId $id, UserId $ownerId, DateTime $startTime, DateTime $endTime, $title, $description)
-    {
+    public static function register(
+        AuctionId $id,
+        UserId $ownerId,
+        DateTime $startTime,
+        DateTime $endTime,
+        $title,
+        $description,
+        $startingPrice,
+        $isBuyNowAvailable = false
+    ) {
         $self = new self();
 
         $self->id = $id;
@@ -62,6 +81,9 @@ class Auction
 
         $self->title = $title;
         $self->description = $description;
+
+        $self->startingPrice = $startingPrice;
+        $self->isBuyNowAvailable = $isBuyNowAvailable;
 
         return $self;
     }
@@ -137,4 +159,22 @@ class Auction
     {
         return $this->article;
     }
+
+    /**
+     * @return Money
+     */
+    public function getStartingPrice()
+    {
+        return $this->startingPrice;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function isBuyNowAvailable()
+    {
+        return $this->isBuyNowAvailable;
+    }
+
+
 }

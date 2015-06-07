@@ -6,6 +6,7 @@ use Workshop\Auction\Domain\Entity\Auction;
 use DateTime;
 use Workshop\Auction\Domain\Value\Article;
 use Workshop\Auction\Domain\Value\AuctionId;
+use Workshop\Auction\Domain\Value\Money;
 use Workshop\Auction\Domain\Value\UserId;
 
 class AutionTest extends \PHPUnit_Framework_TestCase
@@ -26,7 +27,9 @@ class AutionTest extends \PHPUnit_Framework_TestCase
         $title = 'Sample title';
         $description = 'Lorem Ipsum bla bla bla';
 
-        $auction = Auction::register($auctionId, $userId, $startTime, $endTime, $title, $description);
+        $startingPrice = Money::fromValues(0, 'EUR');
+
+        $auction = Auction::register($auctionId, $userId, $startTime, $endTime, $title, $description, $startingPrice);
 
         $this->assertInstanceOf(Auction::class, $auction);
         $this->assertEquals($auctionId, $auction->getId());
@@ -35,6 +38,8 @@ class AutionTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($endTime, $auction->getEndTime());
         $this->assertEquals($title, $auction->getTitle());
         $this->assertEquals($description, $auction->getDescription());
+        $this->assertEquals($startingPrice, $auction->getStartingPrice());
+        $this->assertFalse($auction->isBuyNowAvailable());
 
         return $auction;
     }
