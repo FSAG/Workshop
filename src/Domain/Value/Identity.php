@@ -12,7 +12,7 @@ abstract class Identity
     /**
      * @param $value
      */
-    private function __construct($value)
+    protected function __construct($value)
     {
         $value = trim((string) $value);
 

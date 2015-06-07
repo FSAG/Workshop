@@ -33,8 +33,9 @@ class Auction
      */
     private $endTime;
 
-
     /**
+     * @todo add assertion
+     *
      * @param string $title
      * @param string $description
      * @param DateTime $startTime
@@ -49,48 +50,70 @@ class Auction
     }
 
     /**
-     * @param UserId $userId
+     * @param AuctionId $id
+     * @param UserId $ownerId
      * @param string $title
      * @param string $description
      * @param DateTime $startTime
      * @param DateTime $endTime
-     * @return static
+     *
+     * @return Auction
      */
-    public static function register(UserId $userId, $title, $description, DateTime $startTime, DateTime $endTime)
+    public static function createByUser(AuctionId $id, UserId $ownerId, $title, $description, DateTime $startTime, DateTime $endTime)
     {
         $self = new static($title, $description, $startTime, $endTime);
 
-        $self->ownerId = $userId;
+        $self->id = $id;
+        $self->ownerId = $ownerId;
 
         return $self;
     }
 
     /**
-     * {@inheritdoc}
-     *
+     * @return AuctionId
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * @return UserId
+     */
+    public function getOwnerId()
+    {
+        return $this->ownerId;
+    }
+
+    /**
+     * @return string
      */
     public function getTitle()
-    {}
+    {
+        return $this->title;
+    }
 
     /**
-     * {@inheritdoc}
-     *
+     * @return string
      */
     public function getDescription()
-    {}
+    {
+        return $this->description;
+    }
 
     /**
-     * {@inheritdoc}
-     *
+     * @return DateTime
      */
     public function getStartTime()
-    {}
+    {
+        return $this->startTime;
+    }
 
     /**
-     * {@inheritdoc}
-     *
+     * @return DateTime
      */
     public function getEndTime()
-    {}
-
+    {
+        return $this->endTime;
+    }
 }
