@@ -5,7 +5,7 @@ namespace Workshop\Auction\Domain\Exception;
 use Workshop\Auction\Domain\Value\Article;
 use Workshop\Auction\Domain\Value\AuctionId;
 
-class DomainException extends \RuntimeException
+abstract class DomainException extends \RuntimeException
 {
     /**
      * @param AuctionId $auctionId

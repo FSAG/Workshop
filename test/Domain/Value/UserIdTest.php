@@ -19,6 +19,16 @@ class UserIdTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
+    public function it_cannot_be_restored_from_empty_value()
+    {
+        $this->setExpectedException(\InvalidArgumentException::class);
+
+        UserId::fromString('');
+    }
+
+    /**
+     * @test
+     */
     public function it_could_be_restored_from_string()
     {
         $string = '1234567890';
