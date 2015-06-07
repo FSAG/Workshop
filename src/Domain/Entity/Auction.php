@@ -34,40 +34,29 @@ class Auction
     private $endTime;
 
     /**
-     * @todo add assertion
-     *
-     * @param string $title
-     * @param string $description
-     * @param DateTime $startTime
-     * @param DateTime $endTime
-     */
-    final private function __construct($title, $description, DateTime $startTime, DateTime $endTime)
-    {
-        $this->title = $title;
-        $this->description = $description;
-        $this->startTime = $startTime;
-        $this->endTime = $endTime;
-    }
-
-    /**
      * @param AuctionId $id
      * @param UserId $ownerId
-     * @param string $title
-     * @param string $description
      * @param DateTime $startTime
      * @param DateTime $endTime
      *
      * @return Auction
      */
-    public static function createByUser(AuctionId $id, UserId $ownerId, $title, $description, DateTime $startTime, DateTime $endTime)
+    public static function register(AuctionId $id, UserId $ownerId, DateTime $startTime, DateTime $endTime)
     {
-        $self = new static($title, $description, $startTime, $endTime);
+        $self = new static();
 
         $self->id = $id;
         $self->ownerId = $ownerId;
+        $self->startTime = $startTime;
+        $self->endTime = $endTime;
 
         return $self;
     }
+
+    final private function __construct()
+    {
+    }
+
 
     /**
      * @return AuctionId

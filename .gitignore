@@ -18,6 +18,7 @@ Thumbs.db
 /composer.phar
 /composer.lock
 /vendor
+/build
 
 /bin/phpunit
 
