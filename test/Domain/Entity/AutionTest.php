@@ -52,36 +52,6 @@ class AutionTest extends \PHPUnit_Framework_TestCase
      *
      * @return Auction
      */
-    public function it_should_be_valid_until_end_time(Auction $auction)
-    {
-        $this->assertTrue($auction->isRunning());
-    }
-
-    /**
-     * @test
-     * @depends it_could_be_registered
-     *
-     * @return Auction
-     */
-    public function it_should_be_finished_by_the_end_time()
-    {
-        $userId = UserId::generate();
-        $auctionId = AuctionId::generate();
-
-        $startTime = new DateTime('-5 days');
-        $endTime = new DateTime('-1 days');
-
-        $auction = Auction::register($auctionId, $userId, $startTime, $endTime, 'zzz', 'xxx', Money::fromValues(100, 'EUR'), Money::fromValues(15000, 'EUR'));
-
-        $this->assertFalse($auction->isRunning());
-    }
-
-    /**
-     * @test
-     * @depends it_could_be_registered
-     *
-     * @return Auction
-     */
     public function it_should_have_an_article(Auction $auction)
     {
         $article = $this->getMockBuilder(Article::class)
@@ -109,6 +79,36 @@ class AutionTest extends \PHPUnit_Framework_TestCase
         ;
 
         $auction->addArticle($article);
+    }
+
+    /**
+     * @test
+     * @depends it_could_be_registered
+     *
+     * @return Auction
+     */
+    public function it_should_be_valid_until_end_time(Auction $auction)
+    {
+        $this->assertTrue($auction->isRunning(new DateTime()));
+    }
+
+    /**
+     * @test
+     * @depends it_could_be_registered
+     *
+     * @return Auction
+     */
+    public function it_should_be_finished_by_the_end_time()
+    {
+        $userId = UserId::generate();
+        $auctionId = AuctionId::generate();
+
+        $startTime = new DateTime('-5 days');
+        $endTime = new DateTime('-1 days');
+
+        $auction = Auction::register($auctionId, $userId, $startTime, $endTime, 'zzz', 'xxx', Money::fromValues(100, 'EUR'), Money::fromValues(15000, 'EUR'));
+
+        $this->assertFalse($auction->isRunning(new DateTime()));
     }
 
     /**

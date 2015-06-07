@@ -192,12 +192,12 @@ class Auction
     }
 
     /**
+     * @param DateTime $now
+     *
      * @return bool
      */
-    public function isRunning()
+    public function isRunning(DateTime $now)
     {
-        $now = new \DateTime();
-
         return $this->startTime >= $now && $now < $this->endTime;
     }
 
