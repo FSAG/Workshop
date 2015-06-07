@@ -174,6 +174,16 @@ class Auction
     }
 
     /**
+     * @return Money
+     */
+    public function getPrice()
+    {
+        $bid = $this->getLatestBid();
+
+        return $bid ? $bid->getValue() : $this->startingPrice;
+    }
+
+    /**
      * @return boolean
      */
     public function isBuyNowAvailable()
@@ -217,6 +227,22 @@ class Auction
         return $this->bids;
     }
 
+    /**
+     * @return Bid|null
+     */
+    public function getLatestBid()
+    {
+        if (!$this->bids) {
+            return null;
+        }
+
+        return $this->bids[count($this->bids) - 1];
+    }
+
+    /**
+     * @param Bid $bid
+     * @throws \Exception
+     */
     private function guardBid(Bid $bid)
     {
 

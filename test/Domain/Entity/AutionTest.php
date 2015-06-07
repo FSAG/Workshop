@@ -119,17 +119,25 @@ class AutionTest extends \PHPUnit_Framework_TestCase
      */
     public function it_accepts_incremental_bids(Auction $auction)
     {
-        $bid1 = Bid::fromValues(UserId::generate(), Money::fromValues(100, 'EUR'));
-        $bid2 = Bid::fromValues(UserId::generate(), Money::fromValues(100, 'EUR'));
+        $bid1 = Bid::fromValues(UserId::generate(), Money::fromValues(150, 'EUR'));
+        $bid2 = Bid::fromValues(UserId::generate(), Money::fromValues(200, 'EUR'));
+
+        $this->assertEquals($auction->getStartingPrice(), $auction->getPrice());
 
         $auction->placeBid($bid1);
 
         $this->assertEquals(1, $auction->countBids());
         $this->assertEquals([$bid1], $auction->getBids());
+        $this->assertEquals($bid1, $auction->getLatestBid());
+
+        $this->assertEquals($bid1->getValue(), $auction->getPrice());
 
         $auction->placeBid($bid2);
 
         $this->assertEquals(2, $auction->countBids());
         $this->assertEquals([$bid1, $bid2], $auction->getBids());
+        $this->assertEquals($bid2, $auction->getLatestBid());
+
+        $this->assertEquals($bid2->getValue(), $auction->getPrice());
     }
 }
