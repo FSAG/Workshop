@@ -7,6 +7,7 @@ use Workshop\Auction\Domain\Exception\DomainException;
 use Workshop\Auction\Domain\Value\Article;
 use Workshop\Auction\Domain\Value\AuctionId;
 use Workshop\Auction\Domain\Value\Money;
+use Workshop\Auction\Domain\Value\Bid;
 use Workshop\Auction\Domain\Value\UserId;
 use DateTime;
 
@@ -48,6 +49,10 @@ class Auction
      * @var Article
      */
     private $article;
+    /**
+     * @var Bid[]
+     */
+    private $bids = [];
 
     /**
      * @param AuctionId $id
@@ -184,5 +189,36 @@ class Auction
         $now = new \DateTime();
 
         return $this->startTime >= $now && $now < $this->endTime;
+    }
+
+    /**
+     * @param Bid $bid
+     */
+    public function placeBid(Bid $bid)
+    {
+        $this->guardBid($bid);
+
+        $this->bids[] = $bid;
+    }
+
+    /**
+     * @return int
+     */
+    public function countBids()
+    {
+        return count($this->bids);
+    }
+
+    /**
+     * @return Bid[]
+     */
+    public function getBids()
+    {
+        return $this->bids;
+    }
+
+    private function guardBid(Bid $bid)
+    {
+        
     }
 }

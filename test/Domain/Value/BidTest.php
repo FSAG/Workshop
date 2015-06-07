@@ -15,14 +15,12 @@ class BidTest extends \PHPUnit_Framework_TestCase
     {
         $userId = UserId::generate();
         $money = Money::fromValues(123, 'EUR');
-        $now = new \DateTime();
 
         $bid = Bid::fromValues($userId, $money);
 
         $this->assertInstanceOf(Bid::class, $bid);
         $this->assertEquals($userId, $bid->getUserID());
         $this->assertEquals($money, $bid->getValue());
-        $this->assertGreaterThanOrEqual($now, $bid->getTime());
     }
 
     /**

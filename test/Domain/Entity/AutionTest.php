@@ -6,6 +6,7 @@ use Workshop\Auction\Domain\Entity\Auction;
 use DateTime;
 use Workshop\Auction\Domain\Value\Article;
 use Workshop\Auction\Domain\Value\AuctionId;
+use Workshop\Auction\Domain\Value\Bid;
 use Workshop\Auction\Domain\Value\Money;
 use Workshop\Auction\Domain\Value\UserId;
 
@@ -108,5 +109,27 @@ class AutionTest extends \PHPUnit_Framework_TestCase
         ;
 
         $auction->addArticle($article);
+    }
+
+    /**
+     * @test
+     * @depends it_could_be_registered
+     *
+     * @return Auction
+     */
+    public function it_accepts_incremental_bids(Auction $auction)
+    {
+        $bid1 = Bid::fromValues(UserId::generate(), Money::fromValues(100, 'EUR'));
+        $bid2 = Bid::fromValues(UserId::generate(), Money::fromValues(100, 'EUR'));
+
+        $auction->placeBid($bid1);
+
+        $this->assertEquals(1, $auction->countBids());
+        $this->assertEquals([$bid1], $auction->getBids());
+
+        $auction->placeBid($bid2);
+
+        $this->assertEquals(2, $auction->countBids());
+        $this->assertEquals([$bid1, $bid2], $auction->getBids());
     }
 }

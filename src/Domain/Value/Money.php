@@ -34,9 +34,9 @@ final class Money
      */
     private function __construct($amount, $currency, $fraction)
     {
-        $this->amount = $amount;
-        $this->currency = $currency;
-        $this->fraction = $fraction;
+        $this->amount = (int) $amount;
+        $this->currency = strtoupper($currency);
+        $this->fraction = (int) $fraction;
     }
 
     /**

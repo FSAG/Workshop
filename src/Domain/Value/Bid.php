@@ -4,7 +4,7 @@ namespace Workshop\Auction\Domain\Value;
 
 use DateTime;
 
-class Bid
+final class Bid
 {
     /**
      * @var UserId
@@ -14,6 +14,10 @@ class Bid
      * @var Money
      */
     private $value;
+    /**
+     * @var DateTime
+     */
+    private $time;
 
     /**
      * @param UserId $userId
@@ -46,7 +50,7 @@ class Bid
     }
 
     /**
-     * @return float
+     * @return Money
      */
     public function getValue()
     {
