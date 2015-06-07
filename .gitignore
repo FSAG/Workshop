@@ -1,0 +1,23 @@
+# OS & other temp files.
+Thumbs.db
+.DS_Store
+*.out
+*~
+*.bak
+/tmp/
+
+# IDE files.
+/.vagrant/
+/nbproject/
+/.settings/
+/.project
+/.buildpath
+/.idea/
+
+# project related
+/composer.phar
+/composer.lock
+/vendor
+
+/bin/phpunit
+
