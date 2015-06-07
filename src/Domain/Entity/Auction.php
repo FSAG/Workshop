@@ -180,7 +180,7 @@ class Auction
     {
         $bid = $this->getLatestBid();
 
-        return $bid ? $bid->getValue() : $this->startingPrice;
+        return $bid ? $bid->getPrice() : $this->startingPrice;
     }
 
     /**
@@ -198,7 +198,7 @@ class Auction
      */
     public function isRunning(DateTime $now)
     {
-        return $this->startTime >= $now && $now < $this->endTime;
+        return $this->startTime >= $now && $now <= $this->endTime;
     }
 
     /**
@@ -245,6 +245,8 @@ class Auction
      */
     private function guardBid(Bid $bid)
     {
-
+        if ($this->getPrice()->compare($bid->getPrice()) < 1) {
+            throw new \InvalidArgumentException('low bid price');
+        }
     }
 }

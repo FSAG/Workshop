@@ -2,6 +2,7 @@
 
 namespace test\Workshop\Auction\Domain\Entity;
 
+use DateTime;
 use Workshop\Auction\Domain\Value\Bid;
 use Workshop\Auction\Domain\Value\Money;
 use Workshop\Auction\Domain\Value\UserId;
@@ -16,11 +17,11 @@ class BidTest extends \PHPUnit_Framework_TestCase
         $userId = UserId::generate();
         $money = Money::fromValues(123, 'EUR');
 
-        $bid = Bid::fromValues($userId, $money);
+        $bid = Bid::fromValues($userId, $money, new DateTime());
 
         $this->assertInstanceOf(Bid::class, $bid);
         $this->assertEquals($userId, $bid->getUserID());
-        $this->assertEquals($money, $bid->getValue());
+        $this->assertEquals($money, $bid->getPrice());
     }
 
     /**

@@ -13,32 +13,35 @@ final class Bid
     /**
      * @var Money
      */
-    private $value;
+    private $price;
     /**
      * @var DateTime
      */
     private $time;
 
     /**
-     * @param UserId $userId
-     * @param Money $value
+     * @param UserId   $userId
+     * @param Money    $price
+     * @param DateTime $time
      *
      * @return Bid
      */
-    public static function fromValues(UserId $userId, Money $value)
+    public static function fromValues(UserId $userId, Money $price, DateTime $time)
     {
-        return new self($userId, $value);
+        $self = new self();
+
+        $self->userId = $userId;
+        $self->price = $price;
+        $self->time = $time;
+
+        return $self;
     }
 
     /**
-     * @param UserId $userId
-     * @param Money $value
+     * Disabled in favor of named constructors.
      */
-    function __construct(UserId $userId, Money $value)
+    final private function __construct()
     {
-        $this->userId = $userId;
-        $this->value = $value;
-        $this->time = new DateTime();
     }
 
     /**
@@ -52,9 +55,9 @@ final class Bid
     /**
      * @return Money
      */
-    public function getValue()
+    public function getPrice()
     {
-        return $this->value;
+        return $this->price;
     }
 
     /**

@@ -2,8 +2,8 @@
 
 namespace test\Workshop\Auction\Domain\Entity;
 
-use Workshop\Auction\Domain\Entity\Auction;
 use DateTime;
+use Workshop\Auction\Domain\Entity\Auction;
 use Workshop\Auction\Domain\Value\Article;
 use Workshop\Auction\Domain\Value\AuctionId;
 use Workshop\Auction\Domain\Value\Bid;
@@ -43,12 +43,16 @@ class AuctionTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($startingPrice, $auction->getStartingPrice());
         $this->assertFalse($auction->isBuyNowAvailable());
 
+        $this->assertEquals($auction->getStartingPrice(), $auction->getPrice());
+
         return $auction;
     }
 
     /**
      * @test
      * @depends it_could_be_registered
+     *
+     * @param Auction $auction
      *
      * @return Auction
      */
@@ -62,6 +66,8 @@ class AuctionTest extends \PHPUnit_Framework_TestCase
         $auction->addArticle($article);
 
         $this->assertEquals($article, $auction->getArticle());
+
+        return $auction;
     }
 
     /**
@@ -69,7 +75,7 @@ class AuctionTest extends \PHPUnit_Framework_TestCase
      * @depends it_could_be_registered
      * @expectedException \Workshop\Auction\Domain\Exception\ArticleAlreadyAddedException
      *
-     * @return Auction
+     * @param Auction $auction
      */
     public function it_is_not_allowed_to_add_more_articles(Auction $auction)
     {
@@ -85,18 +91,20 @@ class AuctionTest extends \PHPUnit_Framework_TestCase
      * @test
      * @depends it_could_be_registered
      *
+     * @param Auction $auction
+     *
      * @return Auction
      */
     public function it_should_be_valid_until_end_time(Auction $auction)
     {
         $this->assertTrue($auction->isRunning(new DateTime()));
+
+        return $auction;
     }
 
     /**
      * @test
      * @depends it_could_be_registered
-     *
-     * @return Auction
      */
     public function it_should_be_finished_by_the_end_time()
     {
@@ -113,31 +121,57 @@ class AuctionTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @test
-     * @depends it_could_be_registered
+     * @depends it_should_have_an_article
+     *
+     * @param Auction $auction
      *
      * @return Auction
      */
-    public function it_accepts_incremental_bids(Auction $auction)
+    public function it_receives_an_initial_bid(Auction $auction)
     {
-        $bid1 = Bid::fromValues(UserId::generate(), Money::fromValues(150, 'EUR'));
-        $bid2 = Bid::fromValues(UserId::generate(), Money::fromValues(200, 'EUR'));
+        $bid = Bid::fromValues(UserId::generate(), Money::fromValues(250, 'EUR'), new DateTime());
 
-        $this->assertEquals($auction->getStartingPrice(), $auction->getPrice());
-
-        $auction->placeBid($bid1);
+        $auction->placeBid($bid);
 
         $this->assertEquals(1, $auction->countBids());
-        $this->assertEquals([$bid1], $auction->getBids());
-        $this->assertEquals($bid1, $auction->getLatestBid());
+        $this->assertEquals($bid, $auction->getLatestBid());
+        $this->assertEquals($bid->getPrice(), $auction->getPrice());
 
-        $this->assertEquals($bid1->getValue(), $auction->getPrice());
+        return $auction;
+    }
 
-        $auction->placeBid($bid2);
+    /**
+     * @test
+     * @depends it_receives_an_initial_bid
+     *
+     * @param Auction $auction
+     *
+     * @return Auction
+     */
+    public function it_receives_a_higher_bid(Auction $auction)
+    {
+        $bid = Bid::fromValues(UserId::generate(), Money::fromValues(500, 'EUR'), new DateTime());
+
+        $auction->placeBid($bid);
 
         $this->assertEquals(2, $auction->countBids());
-        $this->assertEquals([$bid1, $bid2], $auction->getBids());
-        $this->assertEquals($bid2, $auction->getLatestBid());
+        $this->assertEquals($bid, $auction->getLatestBid());
+        $this->assertEquals($bid->getPrice(), $auction->getPrice());
 
-        $this->assertEquals($bid2->getValue(), $auction->getPrice());
+        return $auction;
+    }
+
+    /**
+     * @test
+     * @depends it_receives_a_higher_bid
+     * @expectedException \InvalidArgumentException
+     *
+     * @param Auction $auction
+     */
+    public function it_receives_a_lower_bid(Auction $auction)
+    {
+        $bid = Bid::fromValues(UserId::generate(), Money::fromValues(199, 'EUR'), new DateTime());
+
+        $auction->placeBid($bid);
     }
 }
