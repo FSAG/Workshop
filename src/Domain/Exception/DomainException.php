@@ -13,7 +13,7 @@ abstract class DomainException extends \RuntimeException
      *
      * @return ArticleAlreadyAddedException
      */
-    public static function ArticleAlreadyAddedException(AuctionId $auctionId, Article $article)
+    public static function ArticleAlreadyAdded(AuctionId $auctionId, Article $article)
     {
         // $message = sprintf('Article "%s" is already added to %s auction.', $article->getTitle(), $auctionId);
 

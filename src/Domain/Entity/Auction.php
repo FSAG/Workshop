@@ -151,7 +151,7 @@ class Auction
     public function addArticle(Article $article)
     {
         if ($this->article) {
-            throw DomainException::ArticleAlreadyAddedException($this->getId(), $article);
+            throw DomainException::ArticleAlreadyAdded($this->getId(), $article);
         }
 
         $this->article = $article;
