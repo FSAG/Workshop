@@ -2,7 +2,6 @@
 
 namespace Workshop\Auction\Domain\Entity;
 
-use Workshop\Auction\Domain\Exception\ArticleAlreadyAddedException;
 use Workshop\Auction\Domain\Exception\DomainException;
 use Workshop\Auction\Domain\Value\Article;
 use Workshop\Auction\Domain\Value\AuctionId;
@@ -184,7 +183,7 @@ class Auction
     }
 
     /**
-     * @return boolean
+     * @return bool
      */
     public function isBuyNowAvailable()
     {
@@ -233,7 +232,7 @@ class Auction
     public function getLatestBid()
     {
         if (!$this->bids) {
-            return null;
+            return;
         }
 
         return $this->bids[count($this->bids) - 1];
@@ -241,6 +240,7 @@ class Auction
 
     /**
      * @param Bid $bid
+     *
      * @throws \Exception
      */
     private function guardBid(Bid $bid)
