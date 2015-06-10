@@ -29,5 +29,8 @@
         "preferred-install": "src",
         "store-auths": true,
         "notify-on-install": false
+    },
+    "scripts": {
+        "test": "phpunit"
     }
 }
